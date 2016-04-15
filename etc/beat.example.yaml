@@ -1,0 +1,91 @@
+################### Jolokiabeat Configuration Example #########################
+
+############################# Jolokiabeat ######################################
+
+jolokiabeat:
+  period: 1s
+  url: "http://localhost:8080/jolokia"
+  queries: 
+    - 
+      domain: "java.lang:type=Memory"
+      attributes: 
+        - "HeapMemoryUsage"
+        - "NonHeapMemoryUsage"
+    - 
+      domain: "java.lang:type=MemoryPool,name=Code Cache"
+      attributes: 
+        - "Name"
+        - "PeakUsage"
+        - "Usage"
+        - "Type"
+    - 
+      domain: "java.lang:type=MemoryPool,name=*Perm Gen"
+      attributes: 
+        - "Name"
+        - "PeakUsage"
+        - "Usage"
+        - "Type"
+    - 
+      domain: "java.lang:type=MemoryPool,name=*Old Gen"
+      attributes: 
+        - "Name"
+        - "PeakUsage"
+        - "Usage"
+        - "Type"
+    - 
+      domain: "java.lang:type=MemoryPool,name=*Eden Space"
+      attributes: 
+        - "Name"
+        - "PeakUsage"
+        - "Usage"
+        - "Type"
+    - 
+      domain: "java.lang:type=MemoryPool,name=*Survivor Space"
+      attributes: 
+        - "Name"
+        - "PeakUsage"
+        - "Usage"
+        - "Type"
+    - 
+      domain: "java.lang:type=GarbageCollector,name=*MarkSweep"
+      attributes: 
+        - "Name"
+        - "CollectionCount"
+        - "CollectionTime"
+    - 
+      domain: "java.lang:type=GarbageCollector,name=ParNew"
+      attributes: 
+        - "Name"
+        - "CollectionCount"
+        - "CollectionTime"
+    - 
+      domain: "java.lang:type=ClassLoading"
+      attributes: 
+        - "LoadedClassCount"
+        - "TotalLoadedClassCount"
+        - "UnloadedClassCount"
+    - 
+      domain: "java.lang:type=Runtime"
+      attributes: 
+        - "Uptime"
+        - "StartTime"
+    - 
+      domain: "java.lang:type=Threading"
+      attributes: 
+        - "ThreadCount"
+        - "TotalStartedThreadCount"
+        - "DaemonThreadCount"
+        - "PeakThreadCount"
+    - 
+      domain: "java.lang:type=OperatingSystem"
+      attributes: 
+        - "OpenFileDescriptorCount"
+        - "FreePhysicalMemorySize"
+        - "CommittedVirtualMemorySize"
+        - "FreeSwapSpaceSize"
+        - "ProcessCpuLoad"
+        - "ProcessCpuTime"
+        - "SystemCpuLoad"
+        - "TotalPhysicalMemorySize"
+        - "TotalSwapSpaceSize"
+        - "SystemLoadAverage"
