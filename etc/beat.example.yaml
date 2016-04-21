@@ -3,8 +3,8 @@
 ############################# Jolokiabeat ######################################
 
 jolokiabeat:
-  period: 1s
-  url: "http://localhost:8080/jolokia"
+  period: 10s
+  url: "http://192.168.99.100:32768/jolokia"
   queries: 
     - 
       domain: "java.lang:type=Memory"

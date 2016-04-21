@@ -1,15 +1,13 @@
 package beater
 
 import (
-	"fmt"
-	"time"
-
-	"github.com/elastic/beats/libbeat/beat"
-	"github.com/elastic/beats/libbeat/cfgfile"
-	"github.com/elastic/beats/libbeat/common"
-	"github.com/elastic/beats/libbeat/logp"
-
-	"github.com/kussj/jolokiabeat/config"
+	fmt "fmt"
+	time "time"
+	beat "github.com/elastic/beats/libbeat/beat"
+	cfgfile "github.com/elastic/beats/libbeat/cfgfile"
+	common "github.com/elastic/beats/libbeat/common"
+	logp "github.com/elastic/beats/libbeat/logp"
+	config "github.com/kussj/jolokiabeat/config"
 	jbcommon "github.com/kussj/jolokiabeat/common"
 )
 
@@ -67,7 +65,7 @@ func (bt *Jolokiabeat) Setup(b *beat.Beat) error {
 
 	// Setting default period if not set
 	if bt.beatConfig.Jolokiabeat.Period == "" {
-		bt.beatConfig.Jolokiabeat.Period = "1s"
+		bt.beatConfig.Jolokiabeat.Period = "10s"
 	}
 
 	var err error
@@ -91,7 +89,7 @@ func (bt *Jolokiabeat) Run(b *beat.Beat) error {
 		case <-ticker.C:
 		}
 
-		metrics, err := bt.GetJMXMetrics(bt.url, bt.queries)
+		jmx, err := bt.GetJMXMetrics(bt.url, bt.queries)
 		if err != nil {
 			logp.Err("Error reading metrics from: %v", err)
 		} else {
@@ -99,7 +97,7 @@ func (bt *Jolokiabeat) Run(b *beat.Beat) error {
 				"@timestamp": common.Time(time.Now()),
 				"type":       	b.Name,
 				"counter":    	counter,
-				"metrics":		metrics,
+				"jmx":			jmx,
 				"url":			bt.url,
 			}
 //			b.Events.PublishEvent(event)
