@@ -100,7 +100,7 @@ func (bt *Jolokiabeat) Run(b *beat.Beat) error {
 				"jmx":			jmx,
 				"url":			bt.url,
 			}
-//			b.Events.PublishEvent(event)
+			b.Events.PublishEvent(event)
 			logp.Info("Event sent: %v\n", event)
 		}
 		counter++
